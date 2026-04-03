@@ -1,7 +1,9 @@
-import ThreeScene from "./ThreeScene";
+import ClaudeScene from "./ThreeSceneTest";
+import GeminiScene from "./HumanModelThree";
 
 function App() {
-  return <ThreeScene />;
+  //return <GeminiScene />;
+  return <ClaudeScene modelUrl="/assets/man-model.glb"/>;
 }
 
 export default App;
