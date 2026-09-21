@@ -1,9 +1,7 @@
-import ClaudeScene from "./ThreeSceneTest";
-import GeminiScene from "./HumanModelThree";
+import VirtualTryOn from "./ThreeSceneTest";
 
 function App() {
-  //return <GeminiScene />;
-  return <ClaudeScene modelUrl="/assets/man-model.glb"/>;
+  return <VirtualTryOn modelUrl="/assets/man-model.glb" />;
 }
 
 export default App;
