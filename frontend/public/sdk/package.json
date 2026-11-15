@@ -1,0 +1,36 @@
+{
+  "name": "@tryon/sdk",
+  "version": "0.1.0",
+  "description": "SDK per integrare il Try-On (T-shirt e hoodie su un corpo 3D parametrico) in una pagina prodotto.",
+  "main": "tryon-sdk.js",
+  "module": "tryon-sdk.mjs",
+  "types": "tryon.d.ts",
+  "exports": {
+    ".": {
+      "types": "./tryon.d.ts",
+      "import": "./tryon-sdk.mjs",
+      "require": "./tryon-sdk.js",
+      "default": "./tryon-sdk.js"
+    },
+    "./react": {
+      "types": "./tryon.d.ts",
+      "default": "./react.mjs"
+    }
+  },
+  "files": [
+    "tryon-sdk.js",
+    "tryon-sdk.mjs",
+    "react.mjs",
+    "tryon.d.ts"
+  ],
+  "peerDependencies": {
+    "react": ">=17"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

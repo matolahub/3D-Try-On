@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import GarmentPanel from "./tryon/GarmentPanel";
+import { GarmentSystem } from "./tryon/garmentMesh";
+import { buildFitReport } from "./tryon/garmentFit";
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
@@ -74,7 +77,7 @@ const css = `
 
   /* ── Sidebar ── */
   .vto-sidebar {
-    width: 220px;
+    width: 320px;
     border-left: 1px solid var(--border);
     display: flex;
     flex-direction: column;
@@ -288,11 +291,14 @@ export default function VirtualTryOn({ modelUrl = "man-model.glb" }) {
   const autoRef       = useRef(null);
   const angleRef      = useRef(0);
   const destroyedRef  = useRef(false);
+  const garmentRef    = useRef(null);   // GarmentSystem (capo derivato dalla mesh del corpo)
 
   const [angle,      setAngle]      = useState(0);
   const [loading,    setLoading]    = useState(true);
   const [autoRotate, setAutoRotate] = useState(false);
   const [activeView, setActiveView] = useState(0);
+  const [garment,    setGarment]    = useState(null);   // { template, resolved, color, category } dal pannello capo
+  const [fitReport,  setFitReport]  = useState([]);
 
   // measureValues: { morphName → cm value }
   const [measureValues, setMeasureValues] = useState(() =>
@@ -328,6 +334,7 @@ export default function VirtualTryOn({ modelUrl = "man-model.glb" }) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(W, H);
     renderer.shadowMap.enabled = true;
+    renderer.localClippingEnabled = true;     // tagli del capo (orlo, collo, fine manica)
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
@@ -437,6 +444,7 @@ export default function VirtualTryOn({ modelUrl = "man-model.glb" }) {
 
         scene.add(wrapper);
         modelRef.current = wrapper;
+        if (morphMap.Chest) garmentRef.current = new GarmentSystem(morphMap.Chest[0].mesh, pivot);
 
         // Riposiziona camera per vedere il modello intero
         camera.position.set(0, 1.1, 4.2);
@@ -474,6 +482,8 @@ export default function VirtualTryOn({ modelUrl = "man-model.glb" }) {
 
     return () => {
       destroyedRef.current = true;
+      garmentRef.current?.dispose();
+      garmentRef.current = null;
       cancelAnimationFrame(rafRef.current);
       clearInterval(autoRef.current);
       window.removeEventListener("resize", onResize);
@@ -482,6 +492,18 @@ export default function VirtualTryOn({ modelUrl = "man-model.glb" }) {
       if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
     };
   }, [modelUrl]);
+
+  // ── Capo: si ricalcola quando cambia il capo o una misura del corpo ───────
+  const bodyCm = { chest: measureValues.Chest, waist: measureValues.Waist, hips: measureValues.Hips, height: measureValues.Altezza };
+  useEffect(() => {
+    const gs = garmentRef.current;
+    if (!gs || loading) return;
+    gs.setSpec(garment);
+    if (!garment) { setFitReport([]); return; }
+    const geom = gs.update();          // le influence dei morph sono gia' applicate da handleMeasureChange
+    setFitReport(buildFitReport({ template: garment.template, resolved: garment.resolved, body: bodyCm, geom }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [garment, measureValues, loading]);
 
   // ── Auto-rotate effect ───────────────────────────────────────────────────
   useEffect(() => {
@@ -598,6 +620,12 @@ export default function VirtualTryOn({ modelUrl = "man-model.glb" }) {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Capo: URL prodotto → estrazione → template parametrico sul corpo */}
+            <div className="vto-sidebar-section">
+              <div className="vto-section-title">Capo</div>
+              <GarmentPanel body={bodyCm} report={fitReport} onGarmentChange={setGarment} />
             </div>
 
             {/* Auto-rotate */}

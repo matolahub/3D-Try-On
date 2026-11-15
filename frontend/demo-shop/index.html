@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Negozio di esempio · Try-On</title>
+  <link rel="stylesheet" href="shop.css" />
+</head>
+<body>
+  <header class="top"><strong>DEMO&nbsp;SHOP</strong><span>negozio di esempio: integra il Try-On tramite SDK</span></header>
+  <main class="page">
+    <nav class="tabs" id="tabs"></nav>
+    <section class="product">
+      <div class="gallery" id="gallery"><div class="ph" id="ph"></div></div>
+      <div class="info">
+        <h1 id="title"></h1>
+        <p class="price" id="price"></p>
+        <p class="lbl">Taglia</p>
+        <div class="sizes" id="sizes"></div>
+        <p class="fitline" id="fitline" aria-live="polite"></p>
+        <button class="cta" id="tryon">Prova su di te</button>
+        <button class="cta ghost" id="inline">Mostra anteprima nella pagina</button>
+        <button class="cta ghost" id="cart">Aggiungi al carrello</button>
+        <p class="log-title">Eventi ricevuti dal Try-On</p>
+        <pre class="log" id="log"></pre>
+      </div>
+    </section>
+    <section class="inline-box" id="inlineBox" hidden></section>
+  </main>
+  <script src="products.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

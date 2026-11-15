@@ -5,7 +5,8 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // legacy-scraping: flusso precedente non piu' usato; public/sdk: file UMD senza build
+  globalIgnores(['dist', 'legacy-scraping', 'public/sdk']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [

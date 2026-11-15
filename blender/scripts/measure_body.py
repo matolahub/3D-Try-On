@@ -16,8 +16,9 @@ import bpy
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bodyspec as S
 
-TOL_CM = 0.8       # errore massimo accettato sulle circonferenze
+TOL_CM = 0.3       # errore massimo accettato sulle circonferenze (misurato: <= 0,1 cm, anche nelle combinazioni)
 TOL_H = 0.3        # ... e sull'altezza
+TOL_SELF = 0.3     # compenetrazione massima tollerata del corpo con se stesso (cm)
 
 body = S.Body()
 kb = body.me.shape_keys.key_blocks
@@ -95,26 +96,31 @@ for combo in ({'Chest': 108, 'Waist': 92, 'Hips': 104, 'Altezza': 182},
     for k in S.KEYS:
         check(f'combo {k}', combo[k], m[k], TOL_H if k == 'Altezza' else TOL_CM)
 
-# ── Grandezze derivate ────────────────────────────────────────────────────────
-TOL_DERIVED = 1.2   # le pendenze sono lineari, la mesh no: tolleranza piu' larga
+# ── Grandezze derivate (collo, braccio, coscia): fanno parte del campo anatomico, qui si riporta quanto valgono ───────────────
 _c0, _v0 = shape({})
-derived0 = {n: measure(_c0, _v0)[n] for n in S.DERIVED}
+m0 = measure(_c0, _v0)
+print('\n4) INFORMATIVO: grandezze derivate (cm). Non sono input: seguono il riferimento anatomico (MakeHuman), nessuna pendenza scritta a mano')
+print('  base: ' + ', '.join(f'{n} {m0[n]:.1f}' for n in S.DERIVED))
+for k in S.LEVEL:
+    for cm in S.RANGES[k]:
+        c, v = shape({k: cm})
+        m = measure(c, v)
+        print(f'  {k}={cm}: ' + ', '.join(f'{n} {m[n]:.1f} ({(m[n] - m0[n]) / (cm - neutral[k]):+.2f} cm/cm)' for n in S.DERIVED))
 
-print('\n4) Grandezze derivate: seguono la misura guida con la pendenza stabilita')
-for n, sp in S.DERIVED.items():
-    drv = sp['driver']; lo, hi = S.RANGES[drv]
-    for cm in np.linspace(lo, hi, 5):
-        c, v = shape({drv: cm})
-        want = derived0[n] + sp['slope'] * (cm - neutral[drv])
-        check(f'{n} con {drv}={cm:.0f} (pend. {sp["slope"]})', want, measure(c, v)[n], TOL_DERIVED)
-
-print('\n5) Le derivate NON cambiano quando muovo misure che non le guidano')
-for n, sp in S.DERIVED.items():
-    for k in S.KEYS:
-        if k == sp['driver']: continue
-        for cm in S.RANGES[k]:
-            c, v = shape({k: cm})
-            check(f'{n} resta con {k}={cm}', derived0[n], measure(c, v)[n], TOL_CM)
+print('\n5) Compenetrazioni del corpo con se stesso (braccia nel busto, cosce tra loro)')
+leg_l = np.nonzero((zf < S.CROTCH - 0.03) & (zf > 0.06) & (base_w[:, 0] > 0) & (~body.arm_mask))[0]
+def self_hits(c):
+    return body.arm_penetration(c), max(0.0, -c[leg_l, 0].min()) * 100
+CASES = [({'Chest': S.RANGES['Chest'][1]}, 'petto max'), ({'Waist': S.RANGES['Waist'][1]}, 'vita max'), ({'Hips': S.RANGES['Hips'][1]}, 'fianchi max'),
+         ({k: S.RANGES[k][1] for k in S.LEVEL}, 'tutto al massimo'), ({k: S.RANGES[k][0] for k in S.LEVEL}, 'tutto al minimo'),
+         ({'Chest': 118, 'Waist': 112, 'Hips': 116}, 'sovrappeso')]
+for combo, label in CASES:
+    c, v = shape(combo)
+    arm_d, leg_d = self_hits(c)
+    for what, d in (('braccio dentro il busto', arm_d), ('cosce oltre il piano mediano', leg_d)):
+        ok = d <= TOL_SELF
+        fails += not ok
+        print(f'  {"OK  " if ok else "FAIL"} {label:18s} {what:30s} {d:5.2f} cm')
 
 print('\n6) INFORMATIVO (non fa fallire il test): altre grandezze influenzate dalle misure')
 def extras(c, v):

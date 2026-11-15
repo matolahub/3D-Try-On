@@ -1,0 +1,208 @@
+{
+  "product": "drivingmato-tee",
+  "name": "DrivingMato Tee",
+  "details": {
+    "fit": "Loose",
+    "neckline": "Round Neck",
+    "sleeve_style": "Raglan Sleeve",
+    "material": "70.1% cotton, 29.9% polyester",
+    "gsm": 250,
+    "thickness": "Moderate",
+    "breathability": "High",
+    "source": "source/drivingMato-detail.md"
+  },
+  "size": "XL",
+  "kind": "tshirt",
+  "version": 2,
+  "measures": {
+    "length": 75,
+    "chest": 61,
+    "sleeve": 42,
+    "size": "XL",
+    "grade": 1.109,
+    "neck_seam_a": 9.788,
+    "neck_seam_y": 0.505,
+    "neck_front": 9.284,
+    "neck_back": 1.312,
+    "rib": 1.715,
+    "shoulder_slope": 0.632,
+    "sleeve_angle": 32.282,
+    "cuff": 21.604,
+    "armpit": 40.962,
+    "armhole_scale": 1.109,
+    "sleeve_top": 42.0,
+    "sleeve_top_photo_S": 42.133,
+    "hem_fold": 2.0,
+    "fabric_mm": 0.9,
+    "collar_mm": 4.0
+  },
+  "table": {
+    "length": 75,
+    "chest": 61,
+    "sleeve": 42
+  },
+  "flat": {
+    "chest_flat": 61.0,
+    "chest_circ": 122.0,
+    "hem_circ": 122.0,
+    "length": 75.0,
+    "sleeve_top": 42.0,
+    "sleeve": 43.37,
+    "cuff_circ": 43.21,
+    "armhole": 41.83,
+    "cap": 41.83,
+    "armhole_back": 46.17,
+    "cap_back": 46.17,
+    "underarm": 3.27
+  },
+  "sources": {
+    "chest": "tabella del negozio (source/tabella_taglie.csv)",
+    "shoulder": "NON APPLICABILE: una raglan non ha cucitura di spalla (la tabella non la riporta)",
+    "length": "tabella del negozio (nella foto il capo e' lungo 73,6 cm: il mockup e' piu' lungo, vale la tabella)",
+    "sleeve": "tabella del negozio, intesa come bordo superiore della manica dal colletto all'orlo manica: interpretazione ASSUNTA (nella foto quel bordo e' lungo 42,1 cm contro 39 di tabella; angolo e apertura della manica restano quelli della foto)",
+    "neck_seam_a": "foto del davanti (scala dal petto di tabella: 55 cm = 538 px)",
+    "neck_front": "foto del davanti (scala dal petto di tabella: 55 cm = 538 px)",
+    "neck_back": "foto del davanti (scala dal petto di tabella: 55 cm = 538 px) (bordo alto del colletto dietro visto dal davanti; la curva dietro e' assunta)",
+    "rib": "foto del davanti (scala dal petto di tabella: 55 cm = 538 px)",
+    "shoulder_slope": "foto: linea spalla-manica resa come un'unica retta dal colletto al polsino (nella foto e' leggermente spezzata)",
+    "armhole": "foto: cucitura raglan davanti (confine rosso/bianco); dietro ASSUNTA con la stessa curvatura",
+    "sleeve_angle": "foto del davanti (scala dal petto di tabella: 55 cm = 538 px)",
+    "cuff": "foto del davanti (scala dal petto di tabella: 55 cm = 538 px), scalata col petto",
+    "armpit": "foto del davanti (scala dal petto di tabella: 55 cm = 538 px), scalata col petto",
+    "hem_fold": "ASSUNTO",
+    "fabric_mm": "ASSUNTO",
+    "collar_mm": "ASSUNTO",
+    "gsm": "scheda prodotto (source/drivingMato-detail.md): 250 gsm, 70.1% cotton, 29.9% polyester - DA CONFERMARE col negozio (GSM reale non verificata)",
+    "fabric_rule": "ASSUNTO: massa della sim proporzionale alla grammatura, flessione al quadrato (regola dichiarata, non misurata su una prova di caduta)",
+    "back": "MANCANTE: nessuna foto del retro (grafica, etichetta, scollo dietro reale)",
+    "collar_back": "ASSUNTO: la costina dietro riusa il colore di quella del davanti (non e' fotografata)",
+    "neck_stretch": "ASSUNTO: lo scollo si allarga fino all'8% (jersey leggermente elastico) dove il collo del manichino e' piu' grosso dell'apertura"
+  },
+  "fabric": {
+    "quality": 10,
+    "mass": 0.3,
+    "air": 3.0,
+    "tension": 12.0,
+    "shear": 12.0,
+    "bending": 1.0,
+    "collar_tension": 8.0,
+    "bend_max": 40.0,
+    "hem_bend": 0.0,
+    "cuff_bend": 0.6,
+    "friction": 18.0,
+    "dist": 0.003,
+    "thick": 0.002,
+    "smooth": 2,
+    "selfdist": 0.003,
+    "gap": 0.004,
+    "gsm": 250,
+    "reference_gsm": 250.0,
+    "note": "unita' della cloth sim di Blender, tarate a occhio sulla Grillz (250 gsm); massa e flessione scalate con la grammatura della scheda prodotto"
+  },
+  "frames": {
+    "dress": 50,
+    "lower": 50,
+    "settle": 70,
+    "hold": 30,
+    "close": 15
+  },
+  "mesh": {
+    "spacing_cm": 1.2,
+    "vertices": 9680,
+    "triangles": 18670,
+    "base_vertices": 7238
+  },
+  "data_quality": {
+    "size_chart": "REALE (tabella del negozio)",
+    "size_chart_assumed": false,
+    "back_photo": "MANCANTE (retro = segnaposto liscio)",
+    "back_neck": "ASSUNTO (profondita' dello scollo dietro vista solo dal davanti)",
+    "gsm": "scheda prodotto, DA CONFERMARE",
+    "assumed": [
+      "armhole",
+      "collar_back",
+      "collar_mm",
+      "fabric_mm",
+      "fabric_rule",
+      "hem_fold",
+      "neck_stretch",
+      "sleeve"
+    ],
+    "missing": [
+      "back"
+    ],
+    "not_applicable": [
+      "shoulder"
+    ]
+  },
+  "neckline": {
+    "seam_cm": 52.1,
+    "vs_pattern_pct": -6.2,
+    "collar_tilt_deg": 33
+  },
+  "bake_seconds": 211,
+  "sim_seconds": 184,
+  "back": "SEGNAPOSTO: manca la foto del retro",
+  "runtime": "il capo e' drappeggiato sul corpo neutro; l'adattamento alle misure e' calcolato a runtime (core/garment/bound.js)",
+  "measured": {
+    "chest_circ_cm": 121.52,
+    "hem_circ_cm": 122.01,
+    "length_cm": 75.33,
+    "sleeve_cm": 43.34,
+    "cuff_circ_cm": 43.77,
+    "note": "misurato sulla mesh 3D finale (check_tee.py), non copiato dalla tabella"
+  },
+  "checks": [
+    {
+      "name": "petto (giro)",
+      "ok": false,
+      "detail": " 121.52 cm  atteso 122.0 (tabella)  errore -0.48 (tolleranza 0.3)"
+    },
+    {
+      "name": "orlo (giro)",
+      "ok": true,
+      "detail": " 122.01 cm  atteso 122.0 (tabella: fianco dritto, orlo = petto)  errore +0.01 (tolleranza 0.3)"
+    },
+    {
+      "name": "lunghezza",
+      "ok": false,
+      "detail": "  75.33 cm  atteso 75.0 (tabella)  errore +0.33 (tolleranza 0.3)"
+    },
+    {
+      "name": "manica (colletto-centro polsino)",
+      "ok": true,
+      "detail": "  43.34 cm  atteso 43.4 (tabella)  errore -0.03 (tolleranza 0.3)"
+    },
+    {
+      "name": "distanza dal corpo",
+      "ok": true,
+      "detail": "minima  2.79 mm (> 2.0), vertici dentro il corpo 0, sotto 2 mm 0"
+    },
+    {
+      "name": "simmetria sx/dx",
+      "ok": true,
+      "detail": "scarto massimo 0.000 mm, medio 0.000 mm (vertici senza specchio: 0)"
+    },
+    {
+      "name": "auto-intersezioni",
+      "ok": true,
+      "detail": "0 coppie di triangoli"
+    },
+    {
+      "name": "quota dell'orlo",
+      "ok": false,
+      "detail": "davanti (sotto l'HPS) 81.9 cm da terra, attesa 79.0 +-2.5 (filo teso di 75 cm dall'HPS a 149.9 cm sul profilo del corpo); tutto l'orlo 80.4..81.9, centro davanti 81.9, dietro 80.5"
+    },
+    {
+      "name": "spessore colletto",
+      "ok": true,
+      "detail": "mediana 3.99 mm (dichiarato 4.0 mm, ASSUNTO), 696 vertici dello strato esterno"
+    }
+  ],
+  "hem_z_m": {
+    "min": 0.8044,
+    "max": 0.8191,
+    "front_center": 0.8191,
+    "back_center": 0.8054
+  }
+}

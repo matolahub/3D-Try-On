@@ -1,0 +1,214 @@
+{
+  "product": "kermit-tee",
+  "name": "Kermit Tee",
+  "details": {
+    "fit": "Loose",
+    "neckline": "Round Neck",
+    "sleeve_style": "Drop Shoulder",
+    "effects": "Washed",
+    "material": "88.91% cotton, 11.09% polyester",
+    "gsm": 350,
+    "thickness": "Thick",
+    "breathability": "Moderate",
+    "source": "Source/kermit-tee-details.md"
+  },
+  "size": "M",
+  "kind": "tshirt",
+  "version": 2,
+  "measures": {
+    "length": 72,
+    "shoulder": 60,
+    "chest": 61,
+    "sleeve": 22,
+    "size": "M",
+    "grade": 1.034,
+    "neck_seam_a": 8.93,
+    "neck_seam_y": 0.319,
+    "neck_front": 7.76,
+    "neck_back": 1.382,
+    "rib": 2.02,
+    "shoulder_slope": 0.374,
+    "sleeve_angle": 28.168,
+    "cuff": 22.023,
+    "armpit": 37.369,
+    "armhole_scale": 1.034,
+    "hem_fold": 0.0,
+    "fabric_mm": 1.3,
+    "collar_mm": 4.6,
+    "sleeve_top": 19.046,
+    "sleeve_top_photo_S": 19.68
+  },
+  "table": {
+    "length": 72,
+    "shoulder": 60,
+    "chest": 61,
+    "sleeve": 22
+  },
+  "flat": {
+    "chest_flat": 61.0,
+    "chest_circ": 122.0,
+    "hem_circ": 122.0,
+    "shoulder": 60.0,
+    "length": 72.0,
+    "sleeve": 22.0,
+    "sleeve_top": 19.05,
+    "cuff_circ": 44.05,
+    "armhole": 30.29,
+    "cap": 30.29,
+    "underarm": 5.94,
+    "neck_seam_circ": 48.82,
+    "neck_open_circ": 38.57
+  },
+  "sources": {
+    "chest": "tabella del negozio (Source/tabella_taglie.csv)",
+    "shoulder": "tabella del negozio (Source/tabella_taglie.csv)",
+    "length": "tabella del negozio (nella foto il capo e' lungo 67,3 cm: il mockup e' piu' corto, vale la tabella)",
+    "sleeve": "tabella del negozio (Source/tabella_taglie.csv) (intesa come spalla -> centro del polsino: sulla foto Grillz 21,3 vs 20,9 cm)",
+    "neck_seam_a": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala)",
+    "neck_front": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala)",
+    "neck_back": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala) (bordo alto del colletto dietro visto dal davanti; la curva dietro e' assunta)",
+    "rib": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala)",
+    "shoulder_slope": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala)",
+    "armhole": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala) (cucitura visibile, davanti); dietro ASSUNTO uguale",
+    "sleeve_angle": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala)",
+    "cuff": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala), scalata col petto",
+    "armpit": "foto del davanti (scala dal petto di tabella; scollo e giromanica: forma della Grillz riportata a questa scala), scalata col petto",
+    "hem_fold": "foto: orlo e maniche a taglio vivo, nessun risvolto",
+    "fabric_mm": "ASSUNTO",
+    "collar_mm": "ASSUNTO",
+    "gsm": "scheda prodotto (Source/kermit-tee-details.md): 350 gsm, 88.91% cotton, 11.09% polyester - DA CONFERMARE col negozio (GSM reale non verificata)",
+    "fabric_rule": "ASSUNTO: massa della sim proporzionale alla grammatura, flessione al quadrato (regola dichiarata, non misurata su una prova di caduta)",
+    "back": "MANCANTE: nessuna foto del retro (grafica, etichetta, scollo dietro reale)",
+    "collar_back": "ASSUNTO: la costina dietro riusa il colore di quella del davanti (non e' fotografata)",
+    "neck_stretch": "ASSUNTO: lo scollo si allarga fino all'8% (jersey leggermente elastico) dove il collo del manichino e' piu' grosso dell'apertura"
+  },
+  "fabric": {
+    "quality": 10,
+    "mass": 0.42,
+    "air": 3.0,
+    "tension": 40.0,
+    "shear": 12.0,
+    "bending": 2.0,
+    "collar_tension": 8.0,
+    "bend_max": 78.4,
+    "hem_bend": 0.0,
+    "cuff_bend": 0.6,
+    "friction": 18.0,
+    "dist": 0.003,
+    "thick": 0.002,
+    "smooth": 2,
+    "selfdist": 0.003,
+    "gap": 0.004,
+    "gsm": 350,
+    "reference_gsm": 250.0,
+    "note": "unita' della cloth sim di Blender, tarate a occhio sulla Grillz (250 gsm); massa e flessione scalate con la grammatura della scheda prodotto"
+  },
+  "frames": {
+    "dress": 50,
+    "lower": 50,
+    "settle": 70,
+    "hold": 30,
+    "close": 15
+  },
+  "mesh": {
+    "spacing_cm": 1.2,
+    "vertices": 9305,
+    "triangles": 17984,
+    "base_vertices": 7505
+  },
+  "data_quality": {
+    "size_chart": "REALE (tabella del negozio)",
+    "size_chart_assumed": false,
+    "back_photo": "MANCANTE (retro = segnaposto liscio)",
+    "back_neck": "ASSUNTO (profondita' dello scollo dietro vista solo dal davanti)",
+    "gsm": "scheda prodotto, DA CONFERMARE",
+    "assumed": [
+      "armhole",
+      "collar_back",
+      "collar_mm",
+      "fabric_mm",
+      "fabric_rule",
+      "neck_stretch"
+    ],
+    "missing": [
+      "back"
+    ],
+    "not_applicable": []
+  },
+  "neckline": {
+    "seam_cm": 50.7,
+    "vs_pattern_pct": 3.9,
+    "collar_tilt_deg": 40
+  },
+  "bake_seconds": 227,
+  "sim_seconds": 196,
+  "back": "SEGNAPOSTO: manca la foto del retro",
+  "runtime": "il capo e' drappeggiato sul corpo neutro; l'adattamento alle misure e' calcolato a runtime (core/garment/bound.js)",
+  "measured": {
+    "chest_circ_cm": 121.8,
+    "hem_circ_cm": 122.0,
+    "length_cm": 72.36,
+    "sleeve_cm": 22.03,
+    "shoulder_cm": 60.43,
+    "cuff_circ_cm": 44.14,
+    "note": "misurato sulla mesh 3D finale (check_tee.py), non copiato dalla tabella"
+  },
+  "checks": [
+    {
+      "name": "petto (giro)",
+      "ok": true,
+      "detail": " 121.80 cm  atteso 122.0 (tabella)  errore -0.20 (tolleranza 0.3)"
+    },
+    {
+      "name": "orlo (giro)",
+      "ok": true,
+      "detail": " 122.00 cm  atteso 122.0 (tabella: fianco dritto, orlo = petto)  errore +0.00 (tolleranza 0.3)"
+    },
+    {
+      "name": "lunghezza",
+      "ok": false,
+      "detail": "  72.36 cm  atteso 72.0 (tabella)  errore +0.36 (tolleranza 0.3)"
+    },
+    {
+      "name": "manica",
+      "ok": true,
+      "detail": "  22.03 cm  atteso 22.0 (tabella)  errore +0.03 (tolleranza 0.3)"
+    },
+    {
+      "name": "spalla",
+      "ok": true,
+      "detail": "  60.43 cm  atteso 60.0 (tabella)  errore +0.43 (tolleranza 0.5)"
+    },
+    {
+      "name": "distanza dal corpo",
+      "ok": true,
+      "detail": "minima  3.82 mm (> 2.0), vertici dentro il corpo 0, sotto 2 mm 0"
+    },
+    {
+      "name": "simmetria sx/dx",
+      "ok": true,
+      "detail": "scarto massimo 0.000 mm, medio 0.000 mm (vertici senza specchio: 0)"
+    },
+    {
+      "name": "auto-intersezioni",
+      "ok": true,
+      "detail": "0 coppie di triangoli"
+    },
+    {
+      "name": "quota dell'orlo",
+      "ok": true,
+      "detail": "davanti (sotto l'HPS) 82.8 cm da terra, attesa 83.5 +-2.5 (filo teso di 72 cm dall'HPS a 149.9 cm sul profilo del corpo); tutto l'orlo 82.7..85.7, centro davanti 82.8, dietro 82.7"
+    },
+    {
+      "name": "spessore colletto",
+      "ok": true,
+      "detail": "mediana 4.59 mm (dichiarato 4.6 mm, ASSUNTO), 600 vertici dello strato esterno"
+    }
+  ],
+  "hem_z_m": {
+    "min": 0.8272,
+    "max": 0.8566,
+    "front_center": 0.8284,
+    "back_center": 0.8272
+  }
+}
