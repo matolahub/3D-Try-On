@@ -1,7 +1,9 @@
 // Pagina prodotto del negozio di ESEMPIO. Mostra cosa deve fare un e-commerce per integrare il Try-On:
 //   1) includere lo script dell'SDK;   2) tradurre il proprio prodotto nel contratto (toTryOnProduct);   3) TryOn.open(...) / TryOn.mount(...).
 (function () {
-  var TRYON_HOST = new URLSearchParams(location.search).get("tryon") || "http://localhost:5173";
+  // in sviluppo il widget gira su :5173 (origine diversa dal negozio, come in produzione); pubblicato su un solo sito sta nella stessa origine
+  var DEV = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  var TRYON_HOST = new URLSearchParams(location.search).get("tryon") || (DEV ? "http://localhost:5173" : location.origin);
   var state = { item: window.SHOP_CATALOG[0], size: "M", controller: null };
   var $ = function (id) { return document.getElementById(id); };
 

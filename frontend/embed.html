@@ -2,12 +2,21 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f1ec" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Try-On</title>
+    <title>wearIT · Prova virtuale</title>
+    <!-- visibile da subito, prima che arrivino JavaScript e stili: niente schermo vuoto mentre il widget si avvia -->
+    <style>
+      html, body { margin: 0; height: 100%; background: #f4f1ec; color: #151412; }
+      .boot { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; font: 15px/1.4 system-ui, -apple-system, sans-serif; }
+      .boot b { font: italic 400 34px/1 Georgia, serif; }
+      .boot b i { font: 600 18px/1 system-ui, sans-serif; letter-spacing: .06em; padding: 4px 6px 3px; margin-left: 2px; background: #151412; color: #f4f1ec; border-radius: 6px; vertical-align: 5px; }
+      .boot span { color: #6b675f; }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div class="boot"><b>wear<i>IT</i></b><span>Preparo la prova virtuale…</span></div></div>
     <script type="module" src="/src/embed/main.jsx"></script>
   </body>
 </html>

@@ -1,0 +1,89 @@
+/* Live Body Scan – schermata a tutto schermo sopra il widget. Leggibile da 2 metri: istruzione grande, colore dello stato su tutto il bordo. */
+.bs { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: flex; flex-direction: column; }
+
+/* ── vista dal vivo ───────────────────────────────────────────────────── */
+.bs-live { position: absolute; inset: 0; background: #0d0c0b; display: none; overflow: hidden; }
+.bs-live.on { display: block; }
+.bs-live::after { content: ""; position: absolute; inset: 0; pointer-events: none; border: 10px solid transparent; transition: border-color .25s var(--ease); }
+.bs-live.t-ok::after { border-color: #3fbf77; }
+.bs-live.t-warn::after { border-color: #f0a33a; }
+.bs-live.t-turn::after { border-color: #56a6f0; }
+
+.bs-frame { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+/* anteprima a specchio, come uno specchio vero: piu' naturale per correggere la posizione */
+.bs-video, .bs-overlay { position: absolute; width: 100%; height: 100%; object-fit: contain; transform: scaleX(-1); }
+.bs-overlay { pointer-events: none; }
+.bs-top { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: flex-start; gap: 10px; padding: max(14px, env(safe-area-inset-top)) 60px 30px 14px;
+  background: linear-gradient(rgba(0, 0, 0, .55), transparent); color: #fff; }
+.bs-phase { flex: 1; align-self: center; font-size: 14px; font-weight: 600; letter-spacing: .01em; text-shadow: 0 1px 3px rgba(0, 0, 0, .5); }
+.bs-top-actions { display: flex; gap: 8px; }
+.bs-icon { width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .16); color: #fff; display: grid; place-items: center; backdrop-filter: blur(6px); }
+.bs-icon svg, .bs-close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.bs-bottom { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 14px max(16px, env(safe-area-inset-bottom)); background: linear-gradient(transparent, rgba(0, 0, 0, .6));
+  display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.bs-cue { width: 100%; max-width: 560px; display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: var(--r-lg); background: rgba(255, 255, 255, .96); color: var(--ink);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .3); transition: background .25s; }
+.bs-cue p { font-size: clamp(19px, 5.4vw, 28px); line-height: 1.2; font-weight: 600; letter-spacing: -.01em; }
+.bs-cue.t-warn { background: #fff4e3; }
+.bs-cue.t-ok { background: #e9f8ef; }
+.bs-cue.t-turn { background: #eaf3fd; }
+.bs-status { width: 52px; height: 52px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; color: #fff; transition: background .25s; }
+.bs-status svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.bs-status.is-ok { background: #2f9e62; }
+.bs-status.is-warn { background: #d9861c; }
+.bs-status.is-turn { background: #3b8fdc; }
+.bs-status.is-turn svg { animation: bs-spin 2.4s linear infinite; }
+@keyframes bs-spin { to { transform: rotate(360deg); } }
+.bs-bar { width: 100%; max-width: 560px; height: 4px; border-radius: 4px; background: rgba(255, 255, 255, .2); overflow: hidden; }
+.bs-bar span { display: block; height: 100%; background: #3fbf77; transition: width .3s var(--ease); }
+.bs-link { border: 0; background: none; color: #fff; text-decoration: underline; font-size: 14px; padding: 6px; }
+.bs-perf { color: rgba(255, 255, 255, .6); font-size: 11px; font-variant-numeric: tabular-nums; }
+
+/* ── schede (intro, caricamento, errore, risultato) ───────────────────── */
+.bs-sheet { position: relative; z-index: 2; margin: auto; width: 100%; max-width: 520px; max-height: 100%; overflow-y: auto; padding: 28px 22px max(22px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; gap: 14px; background: var(--bg); }
+.bs-sheet.is-center { align-items: center; text-align: center; justify-content: center; min-height: 60%; }
+.bs-close { position: absolute; top: 14px; right: 60px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; }
+.bs-kicker { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.bs-title { font: 400 30px/1.1 var(--serif); letter-spacing: -.01em; padding-right: 90px; }
+.bs-title.is-small { font-size: 24px; padding: 0; }
+.bs-muted { color: var(--muted); }
+.bs-small { color: var(--muted); font-size: 12.5px; }
+.bs-tips { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.bs-tips li { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; }
+.bs-tips b { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--surface); display: grid; place-items: center; font-size: 12px; }
+.bs-height { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; }
+.bs-height > span:first-child { display: flex; flex-direction: column; font-weight: 500; }
+.bs-height small { font-weight: 400; color: var(--muted); font-size: 12px; }
+.bs-height-input { display: flex; align-items: baseline; gap: 4px; color: var(--muted); }
+.bs-height-input input { width: 64px; height: 44px; text-align: right; font-size: 22px; font-weight: 600; color: var(--ink); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 0 8px; background: var(--bg); }
+.bs-height-input input[aria-invalid="true"] { border-color: var(--bad); }
+.bs-error-text { color: var(--bad); font-size: 13px; }
+.bs-toggle { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+.bs-toggle input { width: 20px; height: 20px; accent-color: var(--ink); }
+.bs-privacy { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--muted); }
+.bs-privacy svg { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.6; margin-top: 1px; }
+.bs-primary { flex: 0 0 auto; width: 100%; }
+.bs-actions { display: flex; gap: 10px; width: 100%; }
+.bs-sheet.is-center .bs-actions { justify-content: center; }
+.bs-results { list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); }
+.bs-results li { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; column-gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.bs-results li:last-child { border-bottom: 0; }
+.bs-results li > span { display: flex; flex-direction: column; color: var(--ink-2); }
+.bs-results small { font-size: 12px; color: var(--muted); font-weight: 400; }
+.bs-results strong { text-align: right; font-size: 18px; font-variant-numeric: tabular-nums; display: flex; flex-direction: column; }
+.bs-results em { grid-column: 1 / -1; font-style: normal; font-size: 12px; font-weight: 500; }
+.bs-results li.is-info { opacity: .75; }
+.c-alta { color: var(--ok); } .c-media { color: var(--warn); } .c-bassa { color: var(--bad); } .c-dichiarata { color: var(--muted); }
+
+/* pannello di calibrazione (solo sviluppo) */
+.bs-calib { border: 1px dashed var(--line); border-radius: var(--r-md); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+.bs-calib summary { font-weight: 600; font-size: 13px; cursor: pointer; }
+.bs-calib-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.bs-calib-row label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.bs-calib-row input, .bs-calib-note { height: 40px; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 0 10px; font-size: 16px; background: var(--surface); color: var(--ink); width: 100%; }
+.bs-calib-row small { font-weight: 600; color: var(--ink); }
+.bs-calib-out { width: 100%; height: 90px; font: 11px/1.3 ui-monospace, monospace; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 6px; }
+
+@media (prefers-reduced-motion: reduce) { .bs-status.is-turn svg { animation: none; } }

@@ -44,15 +44,17 @@ function buildPlaceholder() {
 export class TryOnEngine {
   /**
    * @param {HTMLElement} container elemento che ospitera' il canvas (deve avere una dimensione)
-   * @param {{ modelUrl: string, onAngle?: (deg:number)=>void, onGeom?: (geom:object)=>void }} opts
+   * @param {{ modelUrl: string, onAngle?: (deg:number)=>void, onGeom?: (geom:object)=>void, framing?: "full"|"outfit" }} opts
    *   onGeom: chiamato quando un capo 3D reale (GLB) finisce di caricarsi: la geometria misurata e' disponibile solo allora
+   *   framing: "full" (default) figura intera; "outfit" inquadratura dalla testa a meta' gamba, adattata alla forma del riquadro
    */
-  constructor(container, { modelUrl, onAngle, onGeom } = {}) {
+  constructor(container, { modelUrl, onAngle, onGeom, framing = "full" } = {}) {
     if (!modelUrl) throw new Error("TryOnEngine: modelUrl obbligatorio");
     this.container = container;
     this.modelUrl = modelUrl;
     this.onAngle = onAngle;
     this.onGeom = onGeom;
+    this.framing = framing;
     this.loaded = false;
     this.disposed = false;
     this.angle = 0;
@@ -191,9 +193,7 @@ export class TryOnEngine {
           morphs: Object.fromEntries(Object.entries(gs.morphDict).map(([name, i]) => [name, gs.morphs[i]])),
         }));
         // inquadratura di partenza: figura intera ma piu' vicina (occupa ~3/4 dell'altezza invece di ~3/5), cosi' il capo si legge subito
-        this.camera.position.set(0, 1.08, 3.5);
-        this.controls.target.set(0, 1.02, 0);
-        this.controls.update();
+        this._frame();
 
         this.loaded = true;
         this._applyBody();
@@ -293,6 +293,23 @@ export class TryOnEngine {
     this.camera.aspect = W / H;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(W, H);
+    if (this.loaded) this._frame();
+  }
+
+  /**
+   * Inquadratura in funzione della forma del riquadro (il modello e' alto 2 unita', piedi a Y = 0).
+   * "full": figura intera, piu' vicina della vista di partenza storica. "outfit": dalla sommita' della testa a meta' gamba (Y 0,55..2,08):
+   * il capo occupa gran parte del riquadro anche su uno schermo di telefono. In entrambi i casi la larghezza resta sufficiente a contenere
+   * le braccia (~1 unita') quando il riquadro e' stretto.
+   */
+  _frame() {
+    const top = 2.08, bottom = this.framing === "outfit" ? 0.55 : -0.04;
+    const tanHalf = Math.tan((this.camera.fov * Math.PI) / 360);
+    const h = Math.max(top - bottom, 1.05 / Math.max(this.camera.aspect, 0.1));
+    const cy = top - h / 2;
+    this.camera.position.set(0, cy + 0.04, h / 2 / tanHalf);
+    this.controls.target.set(0, cy, 0);
+    this.controls.update();
   }
 
   dispose() {

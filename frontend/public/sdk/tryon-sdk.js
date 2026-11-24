@@ -63,6 +63,8 @@
     iframe.src = widgetUrl;
     iframe.title = options.title || "Prova virtuale";
     iframe.setAttribute("sandbox", "allow-scripts allow-same-origin");   // il widget non deve navigare la pagina ne' aprire finestre
+    // fotocamera e sensori di orientamento: servono solo alla scansione del corpo, che li chiede all'utente; il video resta nel widget
+    iframe.setAttribute("allow", "camera; accelerometer; gyroscope");
     iframe.setAttribute("referrerpolicy", "strict-origin");
     iframe.style.cssText = "width:100%;height:" + (options.height || "100%") + ";border:0;display:block;background:#0f0f0f";
     container.appendChild(iframe);

@@ -27,6 +27,7 @@ Stato di riferimento: novembre 2026, tre prodotti (Grillz Tee, Kermit Tee, Drivi
 11. [Esempi di riferimento](#11-esempi-di-riferimento)
 12. [Manutenzione ed evoluzione](#12-manutenzione-ed-evoluzione)
 13. [Informazioni mancanti e limiti noti](#13-informazioni-mancanti-e-limiti-noti)
+14. [Pubblicazione online gratuita](#14-pubblicazione-online-gratuita)
 
 ---
 
@@ -120,7 +121,7 @@ cd frontend && npm run dev       # poi apri /lab.html?asset=grillz-tee&size=M&bo
 | `frontend/src/bodyCalibration.json` | curva cm → influence per ogni shape key | generato |
 | `frontend/src/core/` | motore (`engine.js`), corpo (`bodyMeasures.js`), contratto (`contract.js`) | con cautela |
 | `frontend/src/core/garment/` | `bound.js` (adattamento), `asset.js` (caricamento GLB), `assets.js` (registro), `fit.js` (report), `mesh.js`/`drape.js` (capo parametrico di ripiego) | con cautela |
-| `frontend/src/embed/` | interfaccia del widget e protocollo | solo interfaccia |
+| `frontend/src/embed/` | interfaccia del widget wearIT (`EmbedApp.jsx`, stile e design system in `wearit.css`) e protocollo | solo interfaccia |
 | `frontend/src/lab/lab.js` + `frontend/lab.html` | pagina di sviluppo per ispezionare un capo | sì |
 | `frontend/demo-shop/` | negozio di esempio (catalogo in `products.js`) | sì |
 | `frontend/scripts/deform-asset.mjs` | applica `bound.js` offline a un GLB | sì |
@@ -699,3 +700,31 @@ richiesta; ottimizzare `skinClearance` (griglia su array tipizzati).
 
 **Stato dei criteri al momento della scrittura** (dettaglio in `blender/garment/README.md`): Grillz 4/5 taglie (L: lunghezza −0,30 cm);
 Kermit 3/5 (S: spalla e lunghezza; M: lunghezza); DrivingMato 0/5 (petto su M–2XL e altri).
+
+---
+
+## 14. Pubblicazione online gratuita
+
+Il Try-On è statico: il widget non chiama il backend (`backend/` serve solo all'estrazione dei dati dai negozi ed è estraneo alla demo).
+Basta un hosting di file. [VERIFICATO] la build si serve da un semplice server statico e il widget carica corpo e capi.
+
+```bash
+cd frontend && npm run build:site        # produce dist/: index.html -> demo-shop/, embed.html, sdk/, assets/ (~15 MB)
+```
+
+Per provarla in locale prima di caricarla: `cd dist && python3 -m http.server 5190`, poi `/demo-shop/?tryon=http://127.0.0.1:5190`
+(il parametro serve solo perché `127.0.0.1` è trattato come sviluppo; su un dominio vero non serve).
+
+| Servizio | Come | Note [CONSIGLIATO, verificare i limiti correnti sul sito del servizio] |
+|---|---|---|
+| Cloudflare Pages | caricare la cartella `dist/` (Direct Upload) oppure collegare il repository GitHub | piano gratuito, file ≤ 25 MB (i GLB sono ≤ 1,5 MB); è la scelta consigliata |
+| Netlify | trascinare `dist/` su app.netlify.com/drop | semplice, ha limiti mensili di banda/crediti |
+| GitHub Pages | pubblicare `dist/` su un ramo `gh-pages` | il repository deve essere pubblico sul piano gratuito |
+
+Attenzioni prima di rendere pubblico:
+
+- Foto e texture dei prodotti (Grillz, Kermit, DrivingMato) finiscono nei GLB pubblici: assicurarsi di averne il diritto.
+- `VITE_TRYON_ALLOWED_ORIGINS` (variabile della build) vuota = il widget accetta di essere incorporato da qualunque sito. Va bene per la
+  demo; per un uso reale impostarla con i domini dei negozi.
+- Le misure del corpo restano nel browser dell'utente (nessun server le riceve): la demo non raccoglie dati.
+- Il primo caricamento scarica ~1–3 MB per capo più il corpo; su connessioni lente il widget resta nero per qualche secondo (non c'è un indicatore di caricamento: [FUTURO]).

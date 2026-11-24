@@ -28,6 +28,8 @@ test("mount crea un iframe sandboxed che punta al widget", () => {
   assert.equal(c.iframe.src, "https://tryon.test/embed.html");
   assert.match(c.iframe.attrs.sandbox, /allow-scripts/);
   assert.ok(!/allow-top-navigation|allow-popups|allow-forms/.test(c.iframe.attrs.sandbox));
+  assert.match(c.iframe.attrs.allow, /camera/);           // scansione del corpo
+  assert.ok(!/microphone|geolocation|payment/.test(c.iframe.attrs.allow));
   c.destroy();
   assert.equal(box.children.length, 0);
 });

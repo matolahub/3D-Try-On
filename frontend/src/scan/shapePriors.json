@@ -1,0 +1,145 @@
+{
+  "source": "blender/scripts/scan_shape_priors.py su man-model.blend",
+  "levels": {
+    "Chest": 0.7,
+    "Waist": 0.635,
+    "Hips": 0.52
+  },
+  "sideLevels": {
+    "Chest": 0.75,
+    "Waist": 0.635,
+    "Hips": 0.52
+  },
+  "girthLevels": {
+    "Chest": 0.75,
+    "Waist": 0.635,
+    "Hips": 0.52
+  },
+  "priors": {
+    "Chest": {
+      "depthRatio": 0.7658,
+      "depthRatioStd": 0.1441,
+      "k": 1.1253,
+      "kStd": 0.0326,
+      "errFrontOnlyCm": 20.42,
+      "errFrontSideCm": 6.65,
+      "n": 81,
+      "linFS": [
+        0.34094,
+        2.22272,
+        35.15405
+      ],
+      "errLinFSCm": 2.63,
+      "depthFromWidth": [
+        1.76083,
+        -31.79126
+      ],
+      "errDepthCm": 9.21,
+      "linF": [
+        4.25476,
+        -35.50887
+      ],
+      "errLinFCm": 20.01,
+      "widthRange": [
+        28.0,
+        38.0
+      ],
+      "depthRange": [
+        18.7,
+        34.4
+      ]
+    },
+    "Waist": {
+      "depthRatio": 0.7173,
+      "depthRatioStd": 0.0835,
+      "k": 1.0377,
+      "kStd": 0.0194,
+      "errFrontOnlyCm": 4.7,
+      "errFrontSideCm": 3.32,
+      "n": 81,
+      "linFS": [
+        0.77828,
+        1.978,
+        18.86744
+      ],
+      "errLinFSCm": 0.19,
+      "depthFromWidth": [
+        1.26859,
+        -16.74108
+      ],
+      "errDepthCm": 0.8,
+      "linF": [
+        3.28754,
+        -14.24636
+      ],
+      "errLinFCm": 1.49,
+      "widthRange": [
+        26.4,
+        38.9
+      ],
+      "depthRange": [
+        16.7,
+        32.2
+      ]
+    },
+    "Hips": {
+      "depthRatio": 0.6729,
+      "depthRatioStd": 0.0631,
+      "k": 1.041,
+      "kStd": 0.0028,
+      "errFrontOnlyCm": 6.03,
+      "errFrontSideCm": 0.49,
+      "n": 81,
+      "linFS": [
+        1.78074,
+        1.40259,
+        1.39088
+      ],
+      "errLinFSCm": 0.17,
+      "depthFromWidth": [
+        1.37891,
+        -25.66712
+      ],
+      "errDepthCm": 1.19,
+      "linF": [
+        3.71479,
+        -34.60962
+      ],
+      "errLinFCm": 1.72,
+      "widthRange": [
+        33.0,
+        41.3
+      ],
+      "depthRange": [
+        20.2,
+        31.7
+      ]
+    }
+  },
+  "chestFallback": [
+    {
+      "level": 0.685,
+      "ratio": 1.0282,
+      "ratioStd": 0.0325,
+      "ratioMaxErr": 0.0644
+    },
+    {
+      "level": 0.67,
+      "ratio": 1.0474,
+      "ratioStd": 0.0704,
+      "ratioMaxErr": 0.1339
+    },
+    {
+      "level": 0.655,
+      "ratio": 1.0594,
+      "ratioStd": 0.1091,
+      "ratioMaxErr": 0.1904
+    },
+    {
+      "level": 0.64,
+      "ratio": 1.0581,
+      "ratioStd": 0.137,
+      "ratioMaxErr": 0.2747
+    }
+  ]
+}
